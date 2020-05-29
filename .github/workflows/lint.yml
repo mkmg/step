@@ -9,25 +9,25 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Maven compile
-      run: mvn package
+      run: mvn package -f portfolio/
     - name: install node dependencies
       if: always()
       run: npm install clang-format prettier css-validator html-validate eslint eslint-config-google
     - name: Validate HTML
       if: always()
-      run: node_modules/html-validate/bin/html-validate.js */src/main/*.html
+      run: node_modules/html-validate/bin/html-validate.js */src/main/webapp/*.html
     - name: Validate CSS
       if: always()
-      run: node_modules/css-validator/bin/css-validator */src/main/*.css
+      run: node_modules/css-validator/bin/css-validator */src/main/webapp/*.css
     - name: Validate JavaScript
       if: always()
-      run: node_modules/eslint/bin/eslint.js */src/main/*.js
+      run: node_modules/eslint/bin/eslint.js */src/main/webapp/*.js
     - name: Check HTML Formatting
       if: always()
-      run: node_modules/prettier/bin-prettier.js -c */src/main/*.html
+      run: node_modules/prettier/bin-prettier.js -c */src/main/webapp/*.html
     - name: Check CSS Formatting
       if: always()
-      run: node_modules/prettier/bin-prettier.js -c */src/main/*.css
+      run: node_modules/prettier/bin-prettier.js -c */src/main/webapp/*.css
     - name: Check JavaScript Formatting
       if: always()
       run: diff -u <(cat */src/main/webapp/*.js) <(node_modules/clang-format/bin/linux_x64/clang-format --style=Google */src/main/webapp/*.js)
